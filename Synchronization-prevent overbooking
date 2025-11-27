@@ -1,0 +1,24 @@
+class TicketBooking {
+    private int availableTickets = 1;
+
+    synchronized void bookTicket(String customer) {
+        if (availableTickets > 0) {
+            System.out.println(customer + " successfully booked the ticket!");
+            availableTickets--;
+        } else {
+            System.out.println(customer + " tried to book but no tickets left!");
+        }
+    }
+}
+
+public class BookingTest {
+    public static void main(String[] args) {
+        TicketBooking booking = new TicketBooking();
+
+        Thread t1 = new Thread(() -> booking.bookTicket("Customer 1"));
+        Thread t2 = new Thread(() -> booking.bookTicket("Customer 2"));
+
+        t1.start();
+        t2.start();
+    }
+}
